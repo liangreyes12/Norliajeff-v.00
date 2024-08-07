@@ -73,3 +73,14 @@ footer {
 .text-warning:hover {
     font-weight: bold;
 }
+
+.footer-links {
+    display: flex;
+    justify-content: center; /* Centra los enlaces si lo deseas */
+    gap: 20px; /* Ajusta el espacio entre los enlaces */
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: white; /* Ajusta el color según tu diseño */
+}
