@@ -26,7 +26,7 @@
   <tbody>
     <tr>
       <td>Liang Reyes</td>
-      <td>Cristian Moreno</td>
+      <td>Cristhian Moreno</td>
     </tr>
   </tbody>
 </table>
