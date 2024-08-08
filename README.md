@@ -15,8 +15,18 @@
 </ul>
 
 <h3>Desarrolladores:</h3>
-<ul>
-  <li><i>Liang Reyes: Frontend<i></li>
-  <li><i>Cristian Moreno: Backend<i></li>
-</ul>
 
+<table>
+  <thead>
+    <tr>
+      <td>Frontend</td>
+      <td>Backend</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Liang Reyes</td>
+      <td>Cristian Moreno</td>
+    </tr>
+  </tbody>
+</table>
