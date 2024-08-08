@@ -11,4 +11,12 @@
   <li><strong>Bootstrap</strong></li>
   <li><strong>SQL</strong></li>
   <li><strong>PHP</strong></li>
+  <li><strong>Git</strong></li>
 </ul>
+
+<h3>Desarrolladores:</h3>
+<ul>
+  <li><i>Liang Reyes: FrontEnd<i></li>
+  <li><i>Cristian Moreno: Backend<i></li>
+</ul>
+
