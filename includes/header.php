@@ -24,7 +24,7 @@
             <!-- Contenido del menú -->
             <div class="collapse navbar-collapse justify-content-end" id="mi-menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="../index.php" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="/Norliajeff-v.00/index.php" class="nav-link">Inicio</a></li>
                     <li class="nav-item"><a href="/Norliajeff-v.00/templates/login.php" class="nav-link">Login</a></li>
                     <li class="nav-item"><a href="/Norliajeff-v.00/templates/preguntas.php" class="nav-link">Preguntas Frecuentes</a></li>
                 </ul>
