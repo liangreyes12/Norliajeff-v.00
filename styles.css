@@ -42,6 +42,11 @@
     cursor: pointer;
 }
 
+/*COLOR DE FONDO DE LA PAGINA*/
+.fondo{
+    background-color: rgb(241, 155, 41);
+}
+
 .banner .content h2 {
     font-size: 2em;
     margin-bottom: 10px;
@@ -83,4 +88,13 @@ footer {
 .footer-links a {
     text-decoration: none;
     color: white; /* Ajusta el color según tu diseño */
+}
+
+/*ESTILOS DEL FORMULARIO DE INICIO DE SESION*/
+.formulario-degradado {
+    background: #DFE5EB8F;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%; /* Ajustar el ancho máximo del formulario */
+    margin: auto; /* Centrar el formulario */
 }
