@@ -1,5 +1,5 @@
 <?php
-require_once '\Norliajeff-v.00\controllers\usuarioController'; 
+require_once 'usuarioController.php'; 
 
 // Verificar que se haya enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

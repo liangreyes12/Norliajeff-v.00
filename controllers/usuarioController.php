@@ -1,7 +1,7 @@
 <?php
 
-require_once '\Norliajeff-v.00\models\usuario.php';  
-require_once '\Norliajeff-v.00\models\conexion.php';  
+require_once '../models/usuario.php';  
+require_once '../models/conexion.php';  
 
 class UsuarioController {
     private $db;
@@ -13,21 +13,27 @@ class UsuarioController {
 
     // Crear un nuevo usuario
     public function crearUsuario($Nombre, $Apellido, $Email, $Contrasena) {
-        $sql = "INSERT INTO usuarios (Nombre, Apellido, Email, Contrasena) 
-                VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO usuario (Nombre, Apellido, Email, Contrasena) VALUES (?, ?, ?, ?)";
         
         // Encriptamos la contraseña antes de guardarla
         $hashedContrasena = password_hash($Contrasena, PASSWORD_DEFAULT);
-
+    
         $stmt = $this->db->prepare($sql);
+    
+        if (!$stmt) {
+            // Si la preparación de la consulta falla, muestra el error
+            die("Error en la preparación de la consulta: " . $this->db->error);
+        }
+    
         $stmt->bind_param('ssss', $Nombre, $Apellido, $Email, $hashedContrasena);
         
         return $stmt->execute();
     }
+    
 
     // Obtener un usuario por ID
     public function obtenerUsuarioPorID($ID) {
-        $sql = "SELECT * FROM usuarios WHERE ID = ?";
+        $sql = "SELECT * FROM usuario WHERE ID = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param('i', $ID);
         $stmt->execute();
@@ -42,7 +48,7 @@ class UsuarioController {
 
     // Actualizar un usuario
     public function actualizarUsuario($ID, $Nombre, $Apellido, $Email, $Contrasena) {
-        $sql = "UPDATE usuarios SET Nombre = ?, Apellido = ?, Email = ?, Contrasena = ? 
+        $sql = "UPDATE usuario SET Nombre = ?, Apellido = ?, Email = ?, Contrasena = ? 
                 WHERE ID = ?";
         
         // Encriptamos la contraseña antes de guardarla
@@ -56,7 +62,7 @@ class UsuarioController {
 
     // Eliminar un usuario
     public function eliminarUsuario($ID) {
-        $sql = "DELETE FROM usuarios WHERE ID = ?";
+        $sql = "DELETE FROM usuario WHERE ID = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param('i', $ID);
         
@@ -65,7 +71,7 @@ class UsuarioController {
 
     // Obtener todos los usuarios
     public function obtenerTodosLosUsuarios() {
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT * FROM usuario";
         $resultado = $this->db->query($sql);
         
         $usuarios = [];
@@ -78,7 +84,7 @@ class UsuarioController {
 
     // Verificar credenciales de un usuario (para login)
     public function verificarCredenciales($Email, $Contrasena) {
-        $sql = "SELECT * FROM usuarios WHERE Email = ?";
+        $sql = "SELECT * FROM usuario WHERE Email = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param('s', $Email);
         $stmt->execute();

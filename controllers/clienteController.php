@@ -1,7 +1,7 @@
 <?php
 
-require_once '\Norliajeff-v.00\models\cliente.php';  
-require_once '\Norliajeff-v.00\models\conexion.php';  
+require_once '../models/cliente.php';  
+require_once '../models/conexion.php';  
 
 class ClienteController {
     private $db;
