@@ -24,11 +24,12 @@
             <!-- Contenido del menú -->
             <div class="collapse navbar-collapse justify-content-end" id="mi-menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="/Norliajeff-v.00/index.php" class="nav-link">Clientes</a></li>
+                    <li class="nav-item"><a href="/Norliajeff-v.00/templates/cliente.php" class="nav-link">Clientes</a></li>
                     <li class="nav-item"><a href="/Norliajeff-v.00/templates/login.php" class="nav-link">Compras</a></li>
                     <li class="nav-item"><a href="/Norliajeff-v.00/templates/preguntas.php" class="nav-link">proveedores</a></li>
                     <li class="nav-item"><a href="/Norliajeff-v.00/templates/preguntas.php" class="nav-link">Productos</a></li>
                     <li class="nav-item"><a href="/Norliajeff-v.00/templates/preguntas.php" class="nav-link">Ventas</a></li>
+                    <li class="nav-item"><a href="/Norliajeff-v.00/controllers/logOut.php" class="nav-link">Salir</a></li>
                 </ul>
             </div>
         </div>

@@ -69,4 +69,28 @@ class ClienteController {
         
         return $clientes;
     }
+
+    public function obtenerTodosLosClientesPorID($usuario_id) {
+        $sql = "SELECT * FROM clientes WHERE UsuarioID = ?";
+        $stmt = $this->db->prepare($sql);
+        
+        if (!$stmt) {
+            die("Error en la preparación de la consulta: " . $this->db->error);
+        }
+    
+        $stmt->bind_param('i', $usuario_id);
+        $stmt->execute();
+        
+        $resultado = $stmt->get_result();
+    
+        $clientes = [];
+        while ($row = $resultado->fetch_assoc()) {
+            $clientes[] = new Cliente($row['ID'], $row['Nombre'], $row['Apellido'], $row['Correo'], $row['Direccion'], $row['Telefono'], $row['UsuarioID']);
+        }
+        
+        $stmt->close();
+        return $clientes;
+    }
+
+    
 }

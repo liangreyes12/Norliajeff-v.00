@@ -76,4 +76,6 @@ class Cliente {
     public function setUsuarioID($UsuarioID) {
         $this->UsuarioID = $UsuarioID;
     }
+
+    
 }
