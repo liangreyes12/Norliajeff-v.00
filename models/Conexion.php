@@ -1,7 +1,7 @@
 <?php
 
 class Conexion {
-    private $host = 'localhost:3307'; // se coloca :3307 por configuracion del xampp @Cristhian
+    private $host = 'localhost'; // se coloca :3307 por configuracion del xampp @Cristhian
     private $usuario = 'root';
     private $contrasena = '';
     private $base_de_datos = 'norliajeff';
