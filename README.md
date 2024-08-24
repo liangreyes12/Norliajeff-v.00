@@ -16,4 +16,5 @@ NORLIAJEFF es un proyecto web diseñado como un avanzado sistema de gestión de 
 
 | Frontend     | Backend         |
 |--------------|-----------------|
-| Liang Reyes  | Cristhian Moreno |
+| Liang Reyes  | Cristhian Moreno|
+| Norbey Moreno| Keyner Mestra   |
