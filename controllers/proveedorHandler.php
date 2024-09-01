@@ -1,9 +1,7 @@
 <?php
-session_start();  // Asegúrate de iniciar la sesión
+require_once '../controllers/proveedorController.php'; // Asegúrate de que la ruta sea correcta
 
-require_once 'clienteController.php';
-
-$clienteController = new ClienteController();
+$proveedorController = new proveedorController();
 $usuarioID = $_SESSION['usuario_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,31 +11,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         switch ($accion) {
             case 'crear':
                 $nombre = $_POST['nombre'];
-                $apellido = $_POST['apellido'];
-                $correo = $_POST['correo'];
                 $direccion = $_POST['direccion'];
                 $telefono = $_POST['telefono'];
                 $usuarioID = $_POST['usuario_id'];
-                $clienteController->crearCliente($nombre, $apellido, $correo, $direccion, $telefono, $usuarioID);
-                header('Location: ../templates/cliente.php');
+                $proveedorController->crearProveedor($nombre, $direccion, $telefono, $usuarioID);
+                header('Location: ../templates/proveedor.php');
                 break;
 
             case 'actualizar':
                 $id = $_POST['id'];
                 $nombre = $_POST['nombre'];
-                $apellido = $_POST['apellido'];
-                $correo = $_POST['correo'];
                 $direccion = $_POST['direccion'];
                 $telefono = $_POST['telefono'];
                 $usuarioID = $_POST['usuario_id'];
-                $clienteController->actualizarCliente($id, $nombre, $apellido, $correo, $direccion, $telefono, $usuarioID);
-                header('Location: ../templates/cliente.php');
+                $proveedorController->actualizarProveedor($id, $nombre, $direccion, $telefono, $usuarioID);
+                header('Location: ../templates/proveedor.php');
                 break;
 
             case 'eliminar':
                 $id = $_GET['id'];
-                $clienteController->eliminarCliente($id);
-                header('Location: ../templates/cliente.php');
+                $proveedorController->eliminarProveedor($id);
+                header('Location: ../templates/proveedor.php');
                 break;
 
             default:
@@ -51,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         switch ($accion) {
             case 'eliminar':
                 $id = $_GET['id'];
-                $clienteController->eliminarCliente($id);
-                header('Location: ../templates/cliente.php');
+                $proveedorController->eliminarProveedor($id);
+                header('Location: ../templates/proveedor.php');
                 break;
 
             default:
