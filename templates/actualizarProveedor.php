@@ -1,14 +1,14 @@
 <?php
-include '../includes/headerLogin.php';
+require_once '../includes/headerLogin.php';
 require_once '../controllers/proveedorController.php';
-include '../controllers/autenticador.php';
+require_once '../controllers/autenticador.php';
 require_once '../models/proveedor.php';
-
+$usuario_id = $_SESSION['usuario_id'];
 // Verificar si el ID está presente y es válido
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];
     $proveedorController = new ProveedorController();
-    $proveedor = $proveedorController->obtenerProveedorPorID($id); // Obtener proveedor por ID
+    $proveedor = $proveedorController->obtenerProveedorPorID($id,$usuario_id ); // Obtener proveedor por ID
 
     if ($proveedor) {
         ?>
@@ -27,7 +27,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" name="telefono" value="<?php echo htmlspecialchars($proveedor->getTelefono()); ?>" required>
+                    <input type="tel" class="form-control" name="telefono" value="<?php echo htmlspecialchars($proveedor->getTelefono()); ?>" pattern="\d{10}" maxlength="10" title="El número de teléfono debe tener 10 dígitos." oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                 </div>
                 <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($proveedor->getUsuarioID()); ?>">
                 <button type="submit" class="btn btn-primary" name="BtnActualizar" value="OK">Actualizar</button>
@@ -43,5 +43,5 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 ?>
 
 <?php
-    include '../includes/footer.php';
+    require_once '../includes/footer.php';
 ?>

@@ -1,9 +1,10 @@
 <?php
-require_once '../controllers/productoController.php';
-session_start(); // Asegúrate de iniciar la sesión
+require_once 'autenticador.php';
+require_once 'productoController.php';
+$usuario_id = $_SESSION['usuario_id'];
 
 $productoController = new ProductoController();
-$usuarioID = $_SESSION['usuario_id'];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accion'])) {
@@ -14,9 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nombre = $_POST['nombre'];
                 $descripcion = $_POST['descripcion'];
                 $precio = $_POST['precio'];
-                $stock = $_POST['stock'];
-                $proveedorID = $_POST['proveedor_id'];
-                $productoController->crearProducto($nombre, $descripcion, $precio, $stock, $proveedorID, $usuarioID);
+                $stock = $_POST['stock'];             
+                $productoController->crearProducto($nombre, $descripcion, $precio, $stock, $usuario_id);
                 header('Location: ../templates/productos.php');
                 exit;
 
@@ -26,14 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $descripcion = $_POST['descripcion'];
                 $precio = $_POST['precio'];
                 $stock = $_POST['stock'];
-                $proveedorID = $_POST['proveedor_id'];
-                $productoController->actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $proveedorID, $usuarioID);
+                
+                $productoController->actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $usuario_id);
                 header('Location: ../templates/productos.php');
                 exit;
 
             case 'eliminar':
                 $id = $_POST['id'];
-                $productoController->eliminarProducto($id, $usuarioID);
+                $productoController->eliminarProducto($id, $usuario_id);
                 header('Location: ../templates/productos.php');
                 exit;
 
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar') {
         $id = $_GET['id'];
-        $productoController->eliminarProducto($id, $usuarioID);
+        $productoController->eliminarProducto($id, $usuario_id);
         header('Location: ../templates/productos.php');
         exit;
     } else {
@@ -53,4 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "Método de solicitud no válido";
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $productoNombre = $_POST['producto_name'];
+    var_dump($productoNombre); // Esto te mostrará qué nombre de producto se está enviando
+    $producto = $productoController->obtenerProductoPorNombre($productoNombre, $usuario_id);
+    if ($producto === null) {
+        echo "Producto no encontrado.";
+    } else {
+        echo "Producto encontrado: " . $producto->getNombre();
+    }
+}
+
 ?>

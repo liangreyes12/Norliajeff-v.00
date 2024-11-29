@@ -98,3 +98,11 @@ footer {
     max-width: 90%; /* Ajustar el ancho máximo del formulario */
     margin: auto; /* Centrar el formulario */
 }
+
+/* Estilo para desabilitar campos de texto */
+input:disabled {
+    background-color: #d3cece; /* Un gris claro */
+    color: #6c757d;          /* Texto más tenue */
+    border-color: #d3d0d0;   /* Opcional: Cambiar el borde */
+    cursor: not-allowed;     /* Cambia el cursor a uno que indique "no disponible" */
+}

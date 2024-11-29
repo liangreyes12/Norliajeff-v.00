@@ -8,6 +8,9 @@
             <a class="text-white" href="https://github.com/Cristhianm30" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-github"></i> Cristhian_Moreno
             </a>
+            <a class="text-white" href="https://github.com/morenin05" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i> Norbey_Moreno
+            </a>
         </div>
     </div>
 </footer>
@@ -22,7 +25,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <!-- Scripts personalizados -->
-<script src="/Norliajeff/script.js"></script>
+<!-- <script src="/Norliajeff/script.js"></script> -->
 
 </body>
 </html>

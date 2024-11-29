@@ -1,5 +1,5 @@
 <?php
-    include '../includes/header.php';
+    require_once '../includes/header.php';
 ?>
 
 <main class="vh-100 d-flex justify-content-center align-items-center">
@@ -33,5 +33,5 @@
 
 
 <?php
-    include '../includes/footer.php';
+    require_once '../includes/footer.php';
 ?>

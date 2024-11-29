@@ -1,7 +1,7 @@
 <?php
-
+require_once 'autenticador.php';
 require_once '../models/compras.php';  
-require_once '../models/conexion.php';  
+require_once '../models/conexion.php'; 
 
 class CompraController {
     private $db;
@@ -17,7 +17,7 @@ class CompraController {
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('sdiidii', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $UsuarioID, $ProveedorID);
+        $stmt->bind_param('sdisisi', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $UsuarioID, $ProveedorID);
         
         return $stmt->execute();
     }
@@ -26,7 +26,7 @@ class CompraController {
     public function obtenerCompraPorID($ID, $UsuarioID) {
         $sql = "SELECT * FROM compras WHERE ID = ? AND UsuarioID = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('ii', $ID, $UsuarioID);
+        $stmt->bind_param('is', $ID, $UsuarioID);
         $stmt->execute();
         
         $resultado = $stmt->get_result()->fetch_assoc();
@@ -43,7 +43,7 @@ class CompraController {
                 WHERE ID = ? AND UsuarioID = ?";
         
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('sdiidiii', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $ProveedorID, $ID, $UsuarioID);
+        $stmt->bind_param('sdidiiis', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $ProveedorID, $ID, $UsuarioID);
         
         return $stmt->execute();
     }
@@ -52,7 +52,7 @@ class CompraController {
     public function eliminarCompra($ID, $UsuarioID) {
         $sql = "DELETE FROM compras WHERE ID = ? AND UsuarioID = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('ii', $ID, $UsuarioID);
+        $stmt->bind_param('is', $ID, $UsuarioID);
         
         return $stmt->execute();
     }
@@ -66,7 +66,7 @@ class CompraController {
             die("Error en la preparación de la consulta: " . $this->db->error);
         }
 
-        $stmt->bind_param('i', $UsuarioID);
+        $stmt->bind_param('s', $UsuarioID);
         $stmt->execute();
         
         $resultado = $stmt->get_result();

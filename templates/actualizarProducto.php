@@ -1,8 +1,8 @@
 <?php
-include '../includes/headerLogin.php';
+require_once '../includes/headerLogin.php';
 require_once '../controllers/productoController.php';
 require_once '../controllers/proveedorController.php'; // Necesario si vas a mostrar proveedores en el formulario
-include '../controllers/autenticador.php';
+require_once '../controllers/autenticador.php';
 require_once '../models/producto.php';
 
 // Verificar si el ID está presente y es válido
@@ -37,17 +37,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <label for="stock" class="form-label">Cantidad</label>
                     <input type="number" class="form-control" name="stock" value="<?php echo htmlspecialchars($producto->getStock()); ?>" required>
                 </div>
-                <div class="mb-3">
-                    <label for="proveedor_id" class="form-label">Proveedor</label>
-                    <select class="form-select" name="proveedor_id" required>
-                        <option value="" disabled>Seleccione un proveedor</option>
-                        <?php foreach ($proveedores as $proveedor): ?>
-                            <option value="<?php echo htmlspecialchars($proveedor->getID()); ?>" <?php echo ($producto->getProveedorID() == $proveedor->getID()) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($proveedor->getNombre()); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                
                 <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($_SESSION['usuario_id']); ?>">
                 <button type="submit" class="btn btn-primary" name="BtnActualizar" value="OK">Actualizar</button>
             </form>
@@ -62,5 +52,5 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 ?>
 
 <?php
-include '../includes/footer.php';
+require_once '../includes/footer.php';
 ?>

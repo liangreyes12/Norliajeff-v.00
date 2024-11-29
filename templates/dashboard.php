@@ -1,11 +1,10 @@
 <?php
-// Iniciar la sesión
-session_start();
+require_once '../controllers/autenticador.php';
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario_nombre'])) {
     // Redirigir a la página de inicio de sesión si no está autenticado
-    header('Location: /Norliajeff-v.00/login.php');
+    header('Location: login.php');
     exit();
 }
 ?>
@@ -25,7 +24,7 @@ if (!isset($_SESSION['usuario_nombre'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Incluyendo hoja de estilos personalizada -->
-    <link rel="stylesheet" href="/Norliajeff-v.00/styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="fondo">
@@ -39,12 +38,12 @@ if (!isset($_SESSION['usuario_nombre'])) {
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="mi-menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="/Norliajeff-v.00/templates/cliente.php" class="nav-link">Clientes</a></li>
-                    <li class="nav-item"><a href="/Norliajeff-v.00/templates/compras.php" class="nav-link">Compras</a></li>
-                    <li class="nav-item"><a href="/Norliajeff-v.00/templates/proveedor.php" class="nav-link">Proveedores</a></li>
-                    <li class="nav-item"><a href="/Norliajeff-v.00/templates/productos.php" class="nav-link">Productos</a></li>
-                    <li class="nav-item"><a href="/Norliajeff-v.00/templates/ventas.php" class="nav-link">Ventas</a></li>
-                    <li class="nav-item"><a href="/Norliajeff-v.00/controllers/logout.php" class="nav-link">Salir</a></li>
+                    <li class="nav-item"><a href="../templates/cliente.php" class="nav-link">Clientes</a></li>
+                    <li class="nav-item"><a href="../templates/compras.php" class="nav-link">Compras</a></li>
+                    <li class="nav-item"><a href="../templates/proveedor.php" class="nav-link">Proveedores</a></li>
+                    <li class="nav-item"><a href="../templates/productos.php" class="nav-link">Productos</a></li>
+                    <li class="nav-item"><a href="../templates/ventas.php" class="nav-link">Ventas</a></li>
+                    <li class="nav-item"><a href="../controllers/logout.php" class="nav-link">Salir</a></li>
                 </ul>
             </div>
         </div>
@@ -68,7 +67,7 @@ if (!isset($_SESSION['usuario_nombre'])) {
     <!-- Contenido principal -->
     <div class="container mt-4">
         <div class="d-flex justify-content-center">
-            <a href="/Norliajeff-v.00/controllers/logout.php" class="btn btn-danger">Cerrar sesión</a>
+            <a href="../controllers/logout.php" class="btn btn-danger">Cerrar sesión</a>
         </div>
     </div>
 
@@ -97,6 +96,7 @@ if (!isset($_SESSION['usuario_nombre'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- Scripts personalizados -->
-    <script src="/Norliajeff/script.js"></script>
+    <!-- <script src="/Norliajeff/script.js"></script> -->
+    
 </body>
 </html>

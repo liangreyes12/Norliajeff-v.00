@@ -1,4 +1,4 @@
-# Norliajeff-v.00
+# Norliajeff
 
 NORLIAJEFF es un proyecto web diseñado como un avanzado sistema de gestión de información empresarial en forma de aplicativo web. Está enfocado en el almacenamiento de datos cruciales, como inventarios, compras, proveedores y clientes. Además, permite la creación de usuarios y pone un fuerte énfasis en la seguridad e integridad de los datos. Actualmente se encuentra en fase de desarrollo; no obstante, contará con tecnología de punta y se planea subir a un servidor para su uso en línea.
 

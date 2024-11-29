@@ -1,10 +1,9 @@
 <?php
 require_once '../includes/headerLogin.php';
 require_once '../controllers/clienteController.php';
-include '../controllers/autenticador.php';
-
-// El usuario_id se obtiene de la sesión para asegurar que se muestran los datos correctos
+require_once '../controllers/autenticador.php';
 $usuario_id = $_SESSION['usuario_id'];
+
 $controller = new ClienteController();
 $clientes = $controller->obtenerTodosLosClientesPorID($usuario_id);
 ?>
@@ -29,7 +28,7 @@ $clientes = $controller->obtenerTodosLosClientesPorID($usuario_id);
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Telefono</label>
-                    <input type="tel" class="form-control" name="telefono" required>
+                    <input type="tel" class="form-control" name="telefono" pattern="\d{10}" maxlength="10" title="El número de teléfono debe tener 10 dígitos." oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Direccion</label>
@@ -86,5 +85,5 @@ $clientes = $controller->obtenerTodosLosClientesPorID($usuario_id);
 </main>
 
 <?php
-include '../includes/footer.php';
+require_once '../includes/footer.php';
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+require_once 'autenticador.php';
 require_once '../models/ventas.php';
 require_once '../models/conexion.php';
 
@@ -17,7 +17,7 @@ class VentasController {
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('sdiidii', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $UsuarioID, $ClienteID);
+        $stmt->bind_param('sdidisi', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $UsuarioID, $ClienteID);
         
         return $stmt->execute();
     }
@@ -43,7 +43,7 @@ class VentasController {
                 WHERE ID = ?";
         
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('sdiidiii', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $UsuarioID, $ClienteID, $ID);
+        $stmt->bind_param('sdidisii', $Fecha, $Total, $Cantidad, $Precio, $ProductoID, $UsuarioID, $ClienteID, $ID);
         
         return $stmt->execute();
     }
@@ -79,7 +79,7 @@ class VentasController {
             die("Error en la preparación de la consulta: " . $this->db->error);
         }
     
-        $stmt->bind_param('i', $usuario_id);
+        $stmt->bind_param('s', $usuario_id);
         $stmt->execute();
         
         $resultado = $stmt->get_result();

@@ -1,13 +1,13 @@
 <?php
-include '../includes/headerLogin.php';
+require_once '../includes/headerLogin.php';
 require_once '../controllers/clienteController.php';
-include '../controllers/autenticador.php';
+require_once '../controllers/autenticador.php';
 require_once '../models/cliente.php';
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $clienteController = new ClienteController();
-    $cliente = $clienteController->obtenerClientePorID($id); // Crear un nuevo método para obtener un cliente por ID
+    $cliente = $clienteController->obtenerClientePorID($id,$_SESSION['usuario_id'] ); // Crear un nuevo método para obtener un cliente por ID
     if ($cliente) {
         ?>
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Telefono</label>
-                    <input type="tel" class="form-control" name="telefono" value="<?php echo $cliente->getTelefono(); ?>" required>
+                    <input type="tel" id="telefono" class="form-control" name="telefono" value="<?php echo $cliente->getTelefono(); ?>" pattern="\d{10}" maxlength="10" title="El número de teléfono debe tener 10 dígitos." oninput="this.value = this.value.replace(/[^0-9]/g, '');"  required>
                 </div>
                 <div class="mb-3">
                     <label for="direccion" class="form-label">Direccion</label>
@@ -49,5 +49,5 @@ if (isset($_GET['id'])) {
 ?>
 
 <?php
-    include '../includes/footer.php';
+    require_once '../includes/footer.php';
 ?>

@@ -1,21 +1,19 @@
 <?php
 require_once '../includes/headerLogin.php';
 require_once '../controllers/productoController.php';
-require_once '../controllers/proveedorController.php'; // Asegúrate de incluir el controlador de proveedores
-include '../controllers/autenticador.php';
+require_once '../controllers/autenticador.php';
 
 // El usuario_id se obtiene de la sesión para asegurar que se muestran los datos correctos
 $usuario_id = $_SESSION['usuario_id'];
 
 // Crear instancias de los controladores
 $productoController = new ProductoController();
-$proveedorController = new ProveedorController();
 
-// Obtener todos los proveedores del usuario
-$proveedores = $proveedorController->obtenerTodosLosProveedoresPorID($usuario_id);
+
+
 
 // Obtener todos los productos del usuario
-$productos = $productoController->obtenerTodosLosProductos($usuario_id);
+$productos = $productoController->obtenerTodosLosProductosPorID($usuario_id);
 ?>
 
 <main class="main">
@@ -40,18 +38,7 @@ $productos = $productoController->obtenerTodosLosProductos($usuario_id);
                 <div class="mb-3">
                     <label for="stock" class="form-label">Cantidad</label>
                     <input type="number" class="form-control" name="stock" required>
-                </div>
-                <div class="mb-3">
-                    <label for="proveedorID" class="form-label">Proveedor</label>
-                    <select class="form-select" name="proveedor_id" required>
-                        <option value="" disabled selected>Seleccione un proveedor</option>
-                        <?php foreach ($proveedores as $proveedor): ?>
-                            <option value="<?php echo htmlspecialchars($proveedor->getID()); ?>">
-                                <?php echo htmlspecialchars($proveedor->getNombre()); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                </div>                
                 <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
                 <input type="hidden" name="accion" value="crear">
                 <button type="submit" class="btn btn-primary" name="BtnRegistrar" value="OK">Registrar</button>
@@ -68,7 +55,7 @@ $productos = $productoController->obtenerTodosLosProductos($usuario_id);
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Cantidad</th>
-                                <th scope="col">Proveedor</th>
+                                
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -81,7 +68,7 @@ $productos = $productoController->obtenerTodosLosProductos($usuario_id);
                                         <td><?php echo htmlspecialchars($producto->getDescripcion()); ?></td>
                                         <td><?php echo htmlspecialchars($producto->getPrecio()); ?></td>
                                         <td><?php echo htmlspecialchars($producto->getStock()); ?></td>
-                                        <td><?php echo htmlspecialchars($producto->getProveedorID()); ?></td>
+                                        
                                         <td>
                                             <a href='actualizarProducto.php?id=<?php echo htmlspecialchars($producto->getID()); ?>' class='btn btn-secondary'>
                                                 <i class='fa-solid fa-pen-to-square'></i>
@@ -104,5 +91,5 @@ $productos = $productoController->obtenerTodosLosProductos($usuario_id);
 </main>
 
 <?php
-include '../includes/footer.php';
+require_once '../includes/footer.php';
 ?>

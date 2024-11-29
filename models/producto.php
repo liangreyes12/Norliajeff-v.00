@@ -6,15 +6,15 @@ class Producto {
     private $Descripcion;
     private $Precio;
     private $Stock;
-    private $ProveedorID;
 
-    public function __construct($ID, $Nombre, $Descripcion, $Precio, $Stock, $ProveedorID) {
+
+    public function __construct($ID, $Nombre, $Descripcion, $Precio, $Stock) {
         $this->ID = $ID;
         $this->Nombre = $Nombre;
         $this->Descripcion = $Descripcion;
         $this->Precio = $Precio;
         $this->Stock = $Stock;
-        $this->ProveedorID = $ProveedorID;
+        
     }
 
     // Getters
@@ -38,8 +38,7 @@ class Producto {
         return $this->Stock;
     }
 
-    public function getProveedorID() {
-        return $this->ProveedorID;
-    }
+    
+
 }
 ?>

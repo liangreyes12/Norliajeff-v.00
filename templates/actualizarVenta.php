@@ -1,22 +1,23 @@
 <?php
-include '../includes/headerLogin.php';
+require_once '../includes/headerLogin.php';
 require_once '../controllers/ventasController.php';
 require_once '../controllers/productoController.php';
 require_once '../controllers/clienteController.php';
-include '../controllers/autenticador.php';
+require_once '../controllers/autenticador.php';
+$usuario_id = $_SESSION['usuario_id'];
 
 // Verificar si el ID está presente y es válido
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];
     $ventasController = new VentasController();
-    $venta = $ventasController->obtenerVentaPorID($id, $_SESSION['usuario_id']); // Obtener venta por ID
+    $venta = $ventasController->obtenerVentaPorID($id); // Obtener venta por ID
 
     if ($venta) {
         // Crear instancias de los controladores para llenar los menús desplegables
         $productoController = new ProductoController();
         $clienteController = new ClienteController();
         
-        $productos = $productoController->obtenerTodosLosProductos($_SESSION['usuario_id']);
+        $productos = $productoController->obtenerTodosLosProductosPorID($_SESSION['usuario_id']);
         $clientes = $clienteController->obtenerClientesPorUsuarioID($_SESSION['usuario_id']);
         ?>
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
@@ -76,5 +77,5 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 ?>
 
 <?php
-include '../includes/footer.php';
+require_once '../includes/footer.php';
 ?>

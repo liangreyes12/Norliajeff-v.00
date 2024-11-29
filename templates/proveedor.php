@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/headerLogin.php';
 require_once '../controllers/proveedorController.php';
-include '../controllers/autenticador.php';
+require_once '../controllers/autenticador.php';
 
 // El usuario_id se obtiene de la sesión para asegurar que se muestran los datos correctos
 $usuario_id = $_SESSION['usuario_id'];
@@ -26,7 +26,7 @@ $proveedores = $controller->obtenerTodosLosProveedoresPorID($usuario_id);
                 </div>
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" name="telefono" required>
+                    <input type="tel" class="form-control" name="telefono" pattern="\d{10}" maxlength="10" title="El número de teléfono debe tener 10 dígitos." oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                 </div>
                 <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
                 <input type="hidden" name="accion" value="crear">
@@ -76,5 +76,5 @@ $proveedores = $controller->obtenerTodosLosProveedoresPorID($usuario_id);
 </main>
 
 <?php
-include '../includes/footer.php';
+require_once '../includes/footer.php';
 ?>

@@ -1,10 +1,9 @@
 <?php
-session_start();  // Asegúrate de iniciar la sesión
-
+require_once 'autenticador.php';
 require_once 'clienteController.php';
-
+$usuario_id = $_SESSION['usuario_id'];
 $clienteController = new ClienteController();
-$usuarioID = $_SESSION['usuario_id'];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accion'])) {
@@ -17,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $correo = $_POST['correo'];
                 $direccion = $_POST['direccion'];
                 $telefono = $_POST['telefono'];
-                $usuarioID = $_POST['usuario_id'];
-                $clienteController->crearCliente($nombre, $apellido, $correo, $direccion, $telefono, $usuarioID);
+                $usuario_id = $_POST['usuario_id'];
+                $clienteController->crearCliente($nombre, $apellido, $correo, $direccion, $telefono, $usuario_id);
                 header('Location: ../templates/cliente.php');
                 break;
 
@@ -29,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $correo = $_POST['correo'];
                 $direccion = $_POST['direccion'];
                 $telefono = $_POST['telefono'];
-                $usuarioID = $_POST['usuario_id'];
-                $clienteController->actualizarCliente($id, $nombre, $apellido, $correo, $direccion, $telefono, $usuarioID);
+                $usuario_id = $_POST['usuario_id'];
+                $clienteController->actualizarCliente($id, $nombre, $apellido, $correo, $direccion, $telefono, $usuario_id);
                 header('Location: ../templates/cliente.php');
                 break;
 

@@ -1,8 +1,9 @@
 <?php
-require_once '../controllers/proveedorController.php'; // Asegúrate de que la ruta sea correcta
+require_once 'autenticador.php';
+require_once 'proveedorController.php'; // Asegúrate de que la ruta sea correcta
+$usuario_id = $_SESSION['usuario_id'];
+$proveedorController = new ProveedorController();
 
-$proveedorController = new proveedorController();
-$usuarioID = $_SESSION['usuario_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accion'])) {
