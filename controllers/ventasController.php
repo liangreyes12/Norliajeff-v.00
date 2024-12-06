@@ -23,17 +23,15 @@ class VentasController {
     }
 
     // Obtener una venta por ID
-    public function obtenerVentaPorID($ID) {
-        $sql = "SELECT * FROM ventas WHERE ID = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param('i', $ID);
-        $stmt->execute();
-        
-        $resultado = $stmt->get_result()->fetch_assoc();
-        if ($resultado) {
+    public function obtenerVentaPorID($ID, $UsuarioID) { 
+        $sql = "SELECT * FROM ventas WHERE ID = ? AND UsuarioID = ?"; 
+        $stmt = $this->db->prepare($sql); 
+        $stmt->bind_param('is', $ID, $UsuarioID);
+        $stmt->execute(); 
+        $resultado = $stmt->get_result()->fetch_assoc(); 
+        if ($resultado) { 
             return new Venta($resultado['ID'], $resultado['Fecha'], $resultado['Total'], $resultado['Cantidad'], $resultado['Precio'], $resultado['ProductoID'], $resultado['UsuarioID'], $resultado['ClienteID']);
-        }
-        
+        } 
         return null;
     }
 

@@ -34,10 +34,10 @@
 
                 <div class="mb-3">
                     <label for="producto_id" class="form-label">Producto</label>
-                    <input type="text" class="form-control" name="producto_name" id="producto_id" list="productos" required>
+                    <input type="text" class="form-control" name="producto_name" id="producto_id" list="productos" onchange="actualizarPrecio(this.value)" required>
                     <datalist id="productos">
                         <?php foreach ($productos as $producto): ?>
-                            <option value="<?php echo htmlspecialchars($producto->getNombre()); ?>">
+                            <option value="<?php echo htmlspecialchars($producto->getNombre()); ?>" data-precio="<?php echo $producto->getPrecio(); ?>">
                         <?php endforeach; ?>
                     </datalist>
                 </div>
@@ -52,6 +52,8 @@
                     </datalist>
                 </div>
 
+                
+
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input type="date" class="form-control" name="fecha" required autofocus>
@@ -64,12 +66,12 @@
 
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio</label>
-                    <input type="number" step="0.01" class="form-control" name="precio" id="precio" required oninput="calcularTotal()">
+                    <input type="number" id="precio" class="form-control readonly-textbox" name="precio" value="" required oninput="calcularTotal()" readonly>
                 </div>
                 
                 <div class="mb-3">
                     <label for="total" class="form-label">Total</label>
-                    <input type="number" step="0.01" class="form-control" name="total" id="total" disabled readonly>
+                    <input type="number" step="0.01" class="form-control readonly-textbox" name="total" id="total" readonly>
                 </div>
 
                 <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
@@ -96,6 +98,26 @@
                     calcularTotal();
                 });
             </script>
+
+            <script>
+                function actualizarPrecio(productoNombre) {
+                    const datalist = document.getElementById('productos');
+                    const opciones = datalist.children;
+
+                    let precio = '';
+                    // Buscar el precio correspondiente al producto seleccionado
+                    for (let i = 0; i < opciones.length; i++) {
+                        if (opciones[i].value === productoNombre) {
+                            precio = opciones[i].getAttribute('data-precio');
+                            break;
+                        }
+                    }
+
+                    // Actualizar el campo precio
+                    document.getElementById('precio').value = precio || '0.00';
+                }
+            </script>
+
 
             <div class="col-8 p-4">
                 <div class="table-responsive">

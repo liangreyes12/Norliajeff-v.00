@@ -2,7 +2,8 @@
     require_once '../includes/header.php';
 ?>
 
-<main class="vh-100 d-flex justify-content-center align-items-center">
+
+<main class="vh-100 d-flex justify-content-center align-items-center mt-5 mb-5">
     <div class="formulario-degradado">
         <h2 class="mb-4">Formulario de Registro</h2>
         <form id="registro-form" action="..\controllers\usuarioHandler.php" method="post">

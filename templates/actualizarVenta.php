@@ -10,15 +10,21 @@ $usuario_id = $_SESSION['usuario_id'];
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];
     $ventasController = new VentasController();
-    $venta = $ventasController->obtenerVentaPorID($id); // Obtener venta por ID
+    $venta = $ventasController->obtenerVentaPorID($id,$usuario_id); // Obtener venta por ID
 
     if ($venta) {
         // Crear instancias de los controladores para llenar los menús desplegables
         $productoController = new ProductoController();
         $clienteController = new ClienteController();
-        
-        $productos = $productoController->obtenerTodosLosProductosPorID($_SESSION['usuario_id']);
-        $clientes = $clienteController->obtenerClientesPorUsuarioID($_SESSION['usuario_id']);
+        $productos = $productoController->obtenerTodosLosProductosPorID($usuario_id);
+        $clientes = $clienteController->obtenerClientesPorUsuarioID($usuario_id);
+        $productoNombre = '';
+        foreach ($productos as $producto) {
+            if ($producto->getID() == $venta->getProductoID()) {
+                $productoNombre = $producto->getNombre();
+                break;
+            }
+        }
         ?>
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
             <form class="col-4 p-3" action="../controllers/ventasHandler.php" method="POST">
@@ -26,48 +32,102 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($venta->getID()); ?>">
                 <input type="hidden" name="accion" value="actualizar"> <!-- Acción que indica que se está actualizando -->
                 <div class="mb-3">
+                    <label for="producto_id" class="form-label">Producto</label>
+                    <input type="text" class="form-control" name="producto_name" id="producto_id" list="productos" value="<?php echo htmlspecialchars($productoNombre); ?>" onchange="actualizarPrecioYTotal()" required>
+                    <datalist id="productos">
+                        <?php foreach ($productos as $producto): ?>
+                            <option value="<?php echo htmlspecialchars($producto->getNombre()); ?>" 
+                                    data-precio="<?php echo $producto->getPrecio(); ?>"
+                                    data-id="<?php echo $producto->getID(); ?>">
+                        <?php endforeach; ?>
+                    </datalist>
+                </div>
+                <div class="mb-3">
+                    <label for="cliente_id" class="form-label">Cliente</label>
+                    <input type="text" class="form-control" name="cliente_name" id="cliente_id" list="clientes" value="<?php 
+                        // Buscar el nombre del cliente correspondiente al ID almacenado en la compra
+                        $clienteNombre = '';
+                        foreach ($clientes as $cliente) {
+                            if ($cliente->getID() == $venta->getClienteID()) {
+                                $clienteNombre = $cliente->getNombre();
+                                break;
+                            }
+                        }
+                        echo htmlspecialchars($clienteNombre);
+                    ?>" 
+                    required>
+                    <datalist id="clientes">
+                        <?php foreach ($clientes as $cliente): ?>
+                            <option value="<?php echo htmlspecialchars($cliente->getNombre()); ?>">
+                        <?php endforeach; ?>
+                    </datalist>
+                </div>
+
+                <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input type="date" class="form-control" name="fecha" value="<?php echo htmlspecialchars($venta->getFecha()); ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="total" class="form-label">Total</label>
-                    <input type="number" class="form-control" name="total" value="<?php echo htmlspecialchars($venta->getTotal()); ?>" step="0.01" required>
-                </div>
-                <div class="mb-3">
                     <label for="cantidad" class="form-label">Cantidad</label>
-                    <input type="number" class="form-control" name="cantidad" value="<?php echo htmlspecialchars($venta->getCantidad()); ?>" required>
+                    <input type="number" class="form-control" name="cantidad" value="<?php echo htmlspecialchars($venta->getCantidad()); ?>" id="cantidad" required onchange="actualizarTotal()">
                 </div>
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio</label>
-                    <input type="number" class="form-control" name="precio" value="<?php echo htmlspecialchars($venta->getPrecio()); ?>" step="0.01" required>
+                    <input type="text" class="form-control readonly-textbox" id="precio" name="precio" value="<?php echo htmlspecialchars($venta->getPrecio()); ?>" readonly>
+                    
                 </div>
                 <div class="mb-3">
-                    <label for="producto_id" class="form-label">Producto</label>
-                    <select class="form-select" name="producto_id" required>
-                        <option value="" disabled>Seleccione un producto</option>
-                        <?php foreach ($productos as $producto): ?>
-                            <option value="<?php echo htmlspecialchars($producto->getID()); ?>" <?php echo ($venta->getProductoID() == $producto->getID()) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($producto->getNombre()); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <label for="total" class="form-label">Total</label>
+                    <input type="number" class="form-control readonly-textbox"name="total" id="total" value="<?php echo htmlspecialchars($venta->getTotal()); ?>" readonly>
+                    
                 </div>
-                <div class="mb-3">
-                    <label for="cliente_id" class="form-label">Cliente</label>
-                    <select class="form-select" name="cliente_id" required>
-                        <option value="" disabled>Seleccione un cliente</option>
-                        <?php foreach ($clientes as $cliente): ?>
-                            <option value="<?php echo htmlspecialchars($cliente->getID()); ?>" <?php echo ($venta->getClienteID() == $cliente->getID()) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($cliente->getNombre() . " " . $cliente->getApellido()); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($_SESSION['usuario_id']); ?>">
+                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
                 <button type="submit" class="btn btn-primary" name="BtnActualizar" value="OK">Actualizar</button>
             </form>
         </div>
-        <?php
+        
+        <script>
+            function actualizarPrecioYTotal() {
+                const datalist = document.getElementById('productos');
+                const opciones = datalist.children;
+                const productoNombre = document.getElementById('producto_id').value;
+                let precio = '';
+                let productoID = '';
+
+                // Buscar el precio y el ID correspondiente al producto seleccionado
+                for (let i = 0; i < opciones.length; i++) {
+                    if (opciones[i].value === productoNombre) {
+                        precio = opciones[i].getAttribute('data-precio');
+                        productoID = opciones[i].getAttribute('data-id');
+                        break;
+                    }
+                }
+
+                // Actualizar el precio en el campo visible y en el campo oculto
+                document.getElementById('precio').value = precio || '0.00';
+                
+
+                // Actualizar total automáticamente
+                actualizarTotal();
+            }
+
+            function actualizarTotal() {
+                const cantidad = parseFloat(document.getElementById('cantidad').value) || 0;
+                const precio = parseFloat(document.getElementById('precio').value) || 0;
+                const total = cantidad * precio;
+
+                // Actualizar el campo total y el campo oculto
+                document.getElementById('total').value = total.toFixed(2);
+                
+            }
+
+            // Llamar a la función para inicializar el total cuando la página cargue
+            document.addEventListener('DOMContentLoaded', function() {
+                actualizarPrecioYTotal();  // Inicializa el precio y total al cargar la página
+            });
+        </script>
+
+<?php
     } else {
         echo "Venta no encontrada.";
     }

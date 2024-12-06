@@ -1,5 +1,5 @@
 <?php
-require_once 'usuarioController.php'; // Asegúrate de ajustar la ruta según sea necesario
+require_once 'usuarioController.php'; // Ajusta la ruta según sea necesario
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accion'])) {
@@ -7,6 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Crear una instancia del controlador de usuario
         $usuarioController = new UsuarioController();
+
+        session_start(); // Iniciar sesión para manejar mensajes de error
 
         switch ($accion) {
             case 'registrar':
@@ -20,12 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($resultado) {
                     // Redirigir al usuario a la página de inicio de sesión
-                    header('Location: /Norliajeff-v.00/templates/login.php');
+                    header('Location: ../templates/login.php');
                     exit();
                 } else {
-                    echo "Error al registrar el usuario. Por favor, inténtalo de nuevo.";
+                    $_SESSION['error'] = "Error al registrar el usuario. Por favor, inténtalo de nuevo.";
+                    header('Location: ../templates/singUp.php');
+                    exit();
                 }
-                break;
 
             case 'login':
                 $email = $_POST['email'];
@@ -35,22 +38,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $usuario = $usuarioController->verificarCredenciales($email, $contrasena);
 
                 if ($usuario !== null) {
-                    session_start();
                     $_SESSION['usuario_id'] = $usuario->getID();
                     $_SESSION['usuario_nombre'] = $usuario->getNombre();
 
                     header('Location: ../templates/dashboard.php');
                     exit();
                 } else {
-                    echo "Correo electrónico o contraseña incorrectos.";
+                    // Guardar mensaje de error en la sesión
+                    $_SESSION['error'] = "Correo electrónico o contraseña incorrectos.";
+                    header('Location: ../templates/login.php');
+                    exit();
                 }
-                break;
 
             default:
-                echo "Acción no reconocida.";
-                break;
+                $_SESSION['error'] = "Acción no reconocida.";
+                header('Location: ../templates/login.php');
+                exit();
         }
     }
 }
 ?>
-

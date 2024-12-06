@@ -28,7 +28,6 @@ class CompraController {
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param('is', $ID, $UsuarioID);
         $stmt->execute();
-        
         $resultado = $stmt->get_result()->fetch_assoc();
         if ($resultado) {
             return new Compra($resultado['ID'], $resultado['Fecha'], $resultado['Total'], $resultado['Cantidad'], $resultado['Precio'], $resultado['ProductoID'], $resultado['UsuarioID'], $resultado['ProveedorID']);
