@@ -17,7 +17,3 @@ NORLIAJEFF es un proyecto web diseñado como un avanzado sistema de gestión de 
 |--------------|-----------------|
 | Liang Reyes  | Cristhian Moreno|
 | Norbey Moreno| Keyner Mestra   |
-
-### URL del proyecto (BETA)
-- http://norliajeff.byethost3.com/
-
